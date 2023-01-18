@@ -12,7 +12,6 @@ class PurchaseOrder(models.Model):
         string="Approval Block Reason",
     )
     approval_blocked = fields.Boolean(
-        "Approval Blocked",
         compute="_compute_approval_blocked",
     )
 
@@ -26,8 +25,9 @@ class PurchaseOrder(models.Model):
         po = super(PurchaseOrder, self).create(vals)
         if "approval_block_id" in vals and vals["approval_block_id"]:
             po.message_post(
-                body=_('Order "%s" blocked with reason' ' "%s"')
-                % (po.name, po.approval_block_id.name)
+                body=_('Order "{}" blocked with reason' ' "{}"').format(
+                    po.name, po.approval_block_id.name
+                )
             )
         return po
 
@@ -36,8 +36,9 @@ class PurchaseOrder(models.Model):
         for po in self:
             if "approval_block_id" in vals and vals["approval_block_id"]:
                 po.message_post(
-                    body=_('Order "%s" blocked with reason "%s"')
-                    % (po.name, po.approval_block_id.name)
+                    body=_('Order "{}" blocked with reason "{}"').format(
+                        po.name, po.approval_block_id.name
+                    )
                 )
             elif "approval_block_id" in vals and not vals["approval_block_id"]:
                 po.message_post(body=_('Order "%s" approval block released.') % po.name)
