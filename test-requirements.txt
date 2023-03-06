@@ -1,1 +1,1 @@
-odoo_test_helper
+odoo-addon-partner_stage@ git+https://github.com/oca/partner-contact@refs/pull/1339/head#subdirectory=setup/partner_stage
