@@ -3,7 +3,7 @@
 from odoo.tests import common
 
 
-class TestPartnerSupplierinfoSmartbutton(common.SavepointCase):
+class TestPartnerSupplierinfoSmartbutton(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

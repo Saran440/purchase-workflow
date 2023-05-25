@@ -7,9 +7,7 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    product_supplied_count = fields.Integer(
-        compute="_compute_product_supplied_count", string="Product Supplied Count"
-    )
+    product_supplied_count = fields.Integer(compute="_compute_product_supplied_count")
 
     def _compute_product_supplied_count(self):
         supplierinfo_data = self.env["product.supplierinfo"].read_group(
