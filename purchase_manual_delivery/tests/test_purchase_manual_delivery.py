@@ -97,11 +97,9 @@ class TestPurchaseManualDelivery(TransactionCase):
         wizard = (
             self.env["create.stock.picking.wizard"]
             .with_context(
-                {
-                    "active_model": "purchase.order",
-                    "active_id": self.po1.id,
-                    "active_ids": self.po1.ids,
-                }
+                active_model="purchase.order",
+                active_id=self.po1.id,
+                active_ids=self.po1.ids,
             )
             .create({})
         )
@@ -121,11 +119,9 @@ class TestPurchaseManualDelivery(TransactionCase):
         wizard = (
             self.env["create.stock.picking.wizard"]
             .with_context(
-                {
-                    "active_model": "purchase.order",
-                    "active_id": self.po1.id,
-                    "active_ids": self.po1.ids,
-                }
+                active_model="purchase.order",
+                active_id=self.po1.id,
+                active_ids=self.po1.ids,
             )
             .create({})
         )
@@ -143,11 +139,9 @@ class TestPurchaseManualDelivery(TransactionCase):
         wizard = (
             self.env["create.stock.picking.wizard"]
             .with_context(
-                {
-                    "active_model": "purchase.order",
-                    "active_id": self.po1.id,
-                    "active_ids": self.po1.ids,
-                }
+                active_model="purchase.order",
+                active_id=self.po1.id,
+                active_ids=self.po1.ids,
             )
             .create({})
         )
@@ -182,20 +176,16 @@ class TestPurchaseManualDelivery(TransactionCase):
         with self.assertRaises(UserError):
             # create a manual delivery for two lines different PO
             self.env["create.stock.picking.wizard"].with_context(
-                {
-                    "active_model": "purchase.order.line",
-                    "active_ids": [self.po1_line1.id, self.po2_line1.id],
-                }
+                active_model="purchase.order.line",
+                active_ids=[self.po1_line1.id, self.po2_line1.id],
             ).create({})
 
         # create a manual delivery for lines in PO2
         wizard = (
             self.env["create.stock.picking.wizard"]
             .with_context(
-                {
-                    "active_model": "purchase.order.line",
-                    "active_ids": self.po2.order_line.ids,
-                }
+                active_model="purchase.order.line",
+                active_ids=self.po2.order_line.ids,
             )
             .create({})
         )
@@ -232,11 +222,9 @@ class TestPurchaseManualDelivery(TransactionCase):
         wizard = (
             self.env["create.stock.picking.wizard"]
             .with_context(
-                {
-                    "active_model": "purchase.order",
-                    "active_id": self.po1.id,
-                    "active_ids": self.po1.ids,
-                }
+                active_model="purchase.order",
+                active_id=self.po1.id,
+                active_ids=self.po1.ids,
             )
             .create({})
         )

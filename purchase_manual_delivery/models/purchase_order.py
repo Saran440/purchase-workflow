@@ -23,7 +23,9 @@ class PurchaseOrder(models.Model):
                 order.pending_to_receive = False
 
     def button_confirm_manual(self):
-        super(PurchaseOrder, self.with_context(manual_delivery=True)).button_confirm()
+        return super(
+            PurchaseOrder, self.with_context(manual_delivery=True)
+        ).button_confirm()
 
     def _create_picking(self):
         if self.env.context.get("manual_delivery", False) and self.manual_delivery:
@@ -38,7 +40,6 @@ class PurchaseOrderLine(models.Model):
 
     existing_qty = fields.Float(
         compute="_compute_existing_qty",
-        string="Existing Qty",
         digits="Product Unit of Measure",
         help="Quantity already planned or shipped (stock movements " "already created)",
     )
