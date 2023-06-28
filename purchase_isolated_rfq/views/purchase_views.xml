@@ -6,17 +6,19 @@
         <field name="arch" type="xml">
             <xpath expr="/form/header" position="attributes">
                 <attribute
-                    name="invisible"
-                >not context.get('order_sequence', False)</attribute>
+                    name="attrs"
+                >{'invisible': [('order_sequence','=',False)]}</attribute>
             </xpath>
             <xpath expr="/form/header" position="after">
                 <header
                     name="quotation"
                     attrs="{'invisible': [('order_sequence','=',True)]}"
                 >
+                    <button name="action_rfq_send" states="draft" string="Send by Email" type="object" context="{'send_rfq':True}" class="oe_highlight" data-hotkey="g"/>
+                    <button name="action_rfq_send" states="sent" string="Re-Send by Email" type="object" context="{'send_rfq':True}" data-hotkey="g"/>
                     <button
                         name="action_convert_to_order"
-                        states="draft"
+                        states="draft,sent"
                         class="oe_highlight"
                         type="object"
                         string="Convert to Order"
@@ -31,7 +33,6 @@
                         name="rfq_state"
                         widget="statusbar"
                         statusbar_visible="draft,done"
-                        invisible="context.get('order_sequence', False)"
                     />
                 </header>
             </xpath>

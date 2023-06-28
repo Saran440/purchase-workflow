@@ -39,6 +39,14 @@ class PurchaseOrder(models.Model):
         if not order_sequence and vals.get("name", "/") == "/":
             vals["name"] = self.env["ir.sequence"].next_by_code("purchase.rfq") or "/"
         return super().create(vals)
+    
+    def copy(self, default=None):
+        """Allow duplicate PO back to RFQ document"""
+        self.ensure_one()
+        if default is None:
+            default = dict(default or {}, order_sequence=False, name="/")
+            self = self.with_context(order_sequence=False)
+        return super().copy(default)
 
     def _prepare_order_from_rfq(self):
         return {
@@ -62,7 +70,7 @@ class PurchaseOrder(models.Model):
         purchase_order.button_confirm()
         # Reference from this RFQ to Purchase Order
         self.purchase_order_id = purchase_order.id
-        if self.state == "draft":
+        if self.state in ["draft", "sent"]:
             self.button_done()
         return self.open_duplicated_purchase_order()
 
